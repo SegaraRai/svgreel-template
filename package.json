@@ -15,7 +15,7 @@
     "@fontsource/noto-sans-jp": "^5.3.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "svgreel": "^0.2.0"
+    "svgreel": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
