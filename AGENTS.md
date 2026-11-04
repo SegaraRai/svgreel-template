@@ -76,6 +76,7 @@ pnpm build        # builds every composition and the preview page
 | ----------------------- | ------------ | ------------------------------------------------------------------------------ |
 | `compositions/<name>/`  | the user     | One folder per SVG. Keep text and data in `content.ts`, layout in `index.tsx`. |
 | `fonts/`                | the user     | Font files that aren't on npm (brand fonts).                                   |
+| `tools/`                | the user     | Scripts copied from `node_modules/svgreel/tools/` when needed (docs/tools.md). |
 | `PROJECT.md`            | the user     | Decisions and context for the next session. Keep it current.                   |
 | `node_modules/svgreel/` | the package  | The engine, its docs and examples. **Never edit**; it's replaced on update.    |
 | `dist/`                 | build output | Recreated by `pnpm build`; git-ignored.                                        |
@@ -85,13 +86,15 @@ feature is missing, build it inside the composition (any React component works).
 generally useful, tell the user it could be suggested upstream at
 [svgreel](https://github.com/SegaraRai/svgreel).
 
-To get engine fixes and new components later: `pnpm up svgreel`, then rebuild and check.
+To get engine fixes and new components later: `pnpm up svgreel`, then rebuild and check. If
+`tools/` has copies of svgreel's tools, diff them against the new originals (docs/tools.md).
 
 ## 4. Build and show
 
 1. Create `compositions/<name>/index.tsx`, or adapt `compositions/profile`. More examples ship
-   with the package in `node_modules/svgreel/examples/` (one cell per component, and text
-   features). Copy from them freely.
+   with the package in `node_modules/svgreel/examples/` (`components`, `animation`,
+   `typography`, `beat-sync`). Copy from them freely; the first three import their frame from
+   `_shared/showcase.tsx`.
 2. Run `pnpm build <name>`. It prints the output files and the preview path.
 3. Tell the user to open **`dist/index.html`** in their browser: give the full file path.
    It's a plain file, so no server or port is needed, and it reloads the data by itself after
@@ -117,6 +120,12 @@ variants: { theme: ["dark", "light"], intro: ["a", "b"] }, // a: 90 frames, b: 1
 Remove the losing variants once they decide, and note the decision in `PROJECT.md`. Add
 `markers` for scene starts so they can jump to the part under discussion.
 
+For a value the user will keep tuning (an accent color, a speed, a headline), declare it as a
+param (`params` in `defineComposition`, read with `useParams()`) instead. It adds no files, and
+they can try a value without editing code: `pnpm build --param accent=#f0a66a`, or with sliders
+and color pickers in the preview served by `pnpm watch` (which they run themselves). Once they
+settle on one (the preview's "copy values" gives you the exact values), make it the default.
+
 ## 5. Writing compositions
 
 The docs ship with the installed package, so they always match its version:
@@ -128,6 +137,11 @@ The docs ship with the installed package, so they always match its version:
 - `node_modules/svgreel/docs/text.md`: fonts, fallback, wrapping, and the limits of text
   rendering.
 - `node_modules/svgreel/docs/embedding.md`: publishing the result.
+- `node_modules/svgreel/docs/audio.md`: music or narration in the preview, and timing motion to
+  the beat (only when the user brings audio).
+- `node_modules/svgreel/docs/tools.md`: optional scripts (video export, beat analysis). Copy the
+  ones you need into `tools/` and adapt them; after updating svgreel, diff them against the
+  originals.
 
 Guidelines:
 

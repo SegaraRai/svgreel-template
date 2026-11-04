@@ -2,8 +2,10 @@
 
 <a href="https://github.com/SegaraRai/svgreel">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SegaraRai/svgreel/main/assets/logo-dark.svg">
-    <img src="https://raw.githubusercontent.com/SegaraRai/svgreel/main/assets/logo-light.svg" alt="svgreel" width="240" height="84">
+    <source media="(prefers-color-scheme: dark) and (not (prefers-reduced-motion: reduce))" srcset="https://svgreel.roundtrip.dev/brand/logo-dark.svg">
+    <source media="(not (prefers-reduced-motion: reduce))" srcset="https://svgreel.roundtrip.dev/brand/logo-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://svgreel.roundtrip.dev/brand/logo-dark.still.svg">
+    <img src="https://svgreel.roundtrip.dev/brand/logo-light.still.svg" alt="svgreel" width="240" height="84">
   </picture>
 </a>
 
@@ -15,6 +17,11 @@ Under the hood, motion graphics are written as React components and compiled by
 keyframes for motion, glyph outlines for text. No JavaScript, no web fonts, nothing external, so
 it works inside a GitHub README `<img>`. Every build also produces a still version for viewers
 who prefer reduced motion.
+
+> [!TIP]
+> This template is made to be used with an AI coding agent. To start, copy a prompt from
+> [**Use it with an AI agent**](#use-it-with-an-ai-agent) below and paste it into Claude Code,
+> Codex, Cursor or a similar agent. It sets everything up and asks you what to make.
 
 ## Use it with an AI agent
 
@@ -46,7 +53,7 @@ Requires Node.js 22.12+ and [pnpm](https://pnpm.io/) (npm also works).
 pnpm install
 pnpm build            # every composition → dist/, plus dist/index.html
 pnpm build profile    # just one
-pnpm watch            # rebuild on save
+pnpm watch            # rebuild on save; preview with live param controls on localhost
 pnpm check            # format, lint, type check (pnpm fix to auto-fix)
 ```
 
